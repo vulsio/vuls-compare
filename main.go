@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/future-architect/vuls/config"
+	"github.com/future-architect/vuls/constant"
 	"github.com/future-architect/vuls/detector"
 	"github.com/future-architect/vuls/models"
 	"github.com/google/go-cmp/cmp"
@@ -96,6 +97,21 @@ func compareResult(got models.ScanResult, goldenPath string) error {
 
 func filter(r models.ScanResult, ccType models.CveContentType) models.VulnInfos {
 	for cveId, vi := range r.ScannedCves {
+		switch r.Family {
+		case constant.Alma, constant.Rocky:
+			noneFixed := func() bool {
+				for _, p := range vi.AffectedPackages {
+					if !p.NotFixedYet {
+						return false
+					}
+				}
+				return true
+			}()
+			if noneFixed {
+				delete(r.ScannedCves, cveId)
+				continue
+			}
+		}
 		ccs, found := vi.CveContents[ccType]
 		if found {
 			// slog.Info("found", "cc", cc)

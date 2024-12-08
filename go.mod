@@ -7,7 +7,7 @@ replace github.com/future-architect/vuls => ../vuls
 replace github.com/MaineK00n/vuls2 => ../vuls2
 
 require (
-	github.com/future-architect/vuls v0.0.0-00010101000000-000000000000
+	github.com/future-architect/vuls v0.27.1-0.20241208021358-dc019e5596a6
 	github.com/google/go-cmp v0.6.0
 )
 
@@ -35,8 +35,8 @@ require (
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/CycloneDX/cyclonedx-go v0.9.1 // indirect
 	github.com/GoogleCloudPlatform/docker-credential-gcr v2.0.5+incompatible // indirect
-	github.com/MaineK00n/vuls-data-update v0.0.0-20241125180514-2c47c8550cbc // indirect
-	github.com/MaineK00n/vuls2 v0.0.1-alpha.0.20241129063634-de82aa5e9925 // indirect
+	github.com/MaineK00n/vuls-data-update v0.0.0-20241208090537-1636de60e613 // indirect
+	github.com/MaineK00n/vuls2 v0.0.1-alpha.0.20241208132002-994fa8114011 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.3.0 // indirect
@@ -57,7 +57,7 @@ require (
 	github.com/aquasecurity/go-npm-version v0.0.0-20201110091526-0b796d180798 // indirect
 	github.com/aquasecurity/go-pep440-version v0.0.0-20210121094942-22b2f8951d46 // indirect
 	github.com/aquasecurity/go-version v0.0.0-20240603093900-cf8a8d29271d // indirect
-	github.com/aquasecurity/trivy v0.57.0 // indirect
+	github.com/aquasecurity/trivy v0.57.1 // indirect
 	github.com/aquasecurity/trivy-checks v1.2.2 // indirect
 	github.com/aquasecurity/trivy-db v0.0.0-20241028064941-053a5fa0d3b6 // indirect
 	github.com/aquasecurity/trivy-java-db v0.0.0-20240109071736-184bd7481d48 // indirect
