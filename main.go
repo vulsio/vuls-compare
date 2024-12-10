@@ -117,6 +117,7 @@ func filter(r models.ScanResult, ccType models.CveContentType) models.VulnInfos 
 			// slog.Info("found", "cc", cc)
 			for i, cc := range ccs {
 				cc.Published = time.Time{}
+				cc.Optional = nil
 				ccs[i] = cc
 			}
 			vi.CveContents = models.CveContents{ccType: ccs}
