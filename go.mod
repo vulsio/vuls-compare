@@ -36,7 +36,7 @@ require (
 	github.com/CycloneDX/cyclonedx-go v0.9.1 // indirect
 	github.com/GoogleCloudPlatform/docker-credential-gcr v2.0.5+incompatible // indirect
 	github.com/MaineK00n/vuls-data-update v0.0.0-20241208090537-1636de60e613 // indirect
-	github.com/MaineK00n/vuls2 v0.0.1-alpha.0.20241210015122-7482f8fb50b3 // indirect
+	github.com/MaineK00n/vuls2 v0.0.1-alpha.0.20241210070054-eb2c0ee8d5a0 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.3.0 // indirect
