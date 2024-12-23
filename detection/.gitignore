@@ -24,5 +24,8 @@ go.work.sum
 # env file
 .env
 
+diff/
+vuls
+config.toml
+*.sqlite3
 vuls.db
-

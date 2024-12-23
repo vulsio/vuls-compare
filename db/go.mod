@@ -1,13 +1,9 @@
-module github.com/shino/vuls-compare
+module github.com/shino/vuls-compare/db
 
-go 1.23.2
-
-replace github.com/future-architect/vuls => ../vuls
-
-replace github.com/MaineK00n/vuls2 => ../vuls2
+go 1.23.3
 
 require (
-	github.com/future-architect/vuls v0.27.1-0.20241208021358-dc019e5596a6
+	github.com/future-architect/vuls v0.28.1-0.20241221150536-417840110cc6
 	github.com/google/go-cmp v0.6.0
 )
 
@@ -33,7 +29,7 @@ require (
 	github.com/Azure/go-autorest/tracing v0.6.0 // indirect
 	github.com/AzureAD/microsoft-authentication-library-for-go v1.2.2 // indirect
 	github.com/BurntSushi/toml v1.4.0 // indirect
-	github.com/CycloneDX/cyclonedx-go v0.9.1 // indirect
+	github.com/CycloneDX/cyclonedx-go v0.9.2 // indirect
 	github.com/GoogleCloudPlatform/docker-credential-gcr v2.0.5+incompatible // indirect
 	github.com/MaineK00n/vuls-data-update v0.0.0-20241220103253-e0464240ff28 // indirect
 	github.com/MaineK00n/vuls2 v0.0.1-alpha.0.20241221065108-2b877daba128 // indirect
@@ -77,7 +73,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/internal/checksum v1.4.6 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/presigned-url v1.12.6 // indirect
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.18.6 // indirect
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.70.0 // indirect
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.71.0 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sso v1.24.7 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.28.6 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.33.2 // indirect
@@ -272,7 +268,7 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/spf13/viper v1.19.0 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
-	github.com/stretchr/testify v1.9.0 // indirect
+	github.com/stretchr/testify v1.10.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/tchap/go-patricia/v2 v2.3.1 // indirect
 	github.com/tonistiigi/go-csvvalue v0.0.0-20240710180619-ddb21b71c0b4 // indirect
