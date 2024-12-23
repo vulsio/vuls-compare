@@ -3,7 +3,7 @@ module github.com/shino/vuls-compare/db
 go 1.23.3
 
 require (
-	github.com/future-architect/vuls v0.28.1-0.20241221150536-417840110cc6
+	github.com/future-architect/vuls v0.28.1-0.20241223035147-21d96fbe4a99
 	github.com/google/go-cmp v0.6.0
 )
 
@@ -31,8 +31,8 @@ require (
 	github.com/BurntSushi/toml v1.4.0 // indirect
 	github.com/CycloneDX/cyclonedx-go v0.9.2 // indirect
 	github.com/GoogleCloudPlatform/docker-credential-gcr v2.0.5+incompatible // indirect
-	github.com/MaineK00n/vuls-data-update v0.0.0-20241220103253-e0464240ff28 // indirect
-	github.com/MaineK00n/vuls2 v0.0.1-alpha.0.20241221065108-2b877daba128 // indirect
+	github.com/MaineK00n/vuls-data-update v0.0.0-20241223032335-8957c1d3e796 // indirect
+	github.com/MaineK00n/vuls2 v0.0.1-alpha.0.20241223034432-1f80d0edb8f7 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.3.0 // indirect
