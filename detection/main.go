@@ -57,7 +57,7 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 		return fmt.Errorf("write %s. err: %w", filepath.Join(beforeDir, filepath.Base(filepath.Dir(scanresultPath)), filepath.Base(scanresultPath)), err)
 	}
 
-	cmd := exec.Command(fmt.Sprintf("./%s", vulsBinaryPath), "report", "--config", configPath, "--results-dir", beforeDir, "--quiet", filepath.Base(filepath.Dir(scanresultPath)))
+	cmd := exec.Command(fmt.Sprintf("./%s", vulsBinaryPath), "report", "--config", configPath, "--results-dir", beforeDir, "--quiet", "--refresh-cve", filepath.Base(filepath.Dir(scanresultPath)))
 	if err := cmd.Run(); err != nil {
 		return fmt.Errorf("run %s. err: %w", cmd.String(), err)
 	}
@@ -128,6 +128,7 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 			Path:       vuls2DBPath,
 			SkipUpdate: true,
 		},
+		ReportOpts: config.ReportOpts{RefreshCve: true},
 	}
 
 	ars, err := detector.Detect([]models.ScanResult{r}, afterDir)
@@ -156,12 +157,11 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 		}
 		defer bf2.Close()
 
-		bs, err := os.ReadFile(filepath.Join(beforeDir, filepath.Base(filepath.Dir(scanresultPath)), filepath.Base(scanresultPath)))
-		if err != nil {
-			return fmt.Errorf("read %s. err: %w", filepath.Join(beforeDir, filepath.Base(filepath.Dir(scanresultPath)), filepath.Base(scanresultPath)), err)
-		}
-		if _, err := bf2.Write(bs); err != nil {
-			return fmt.Errorf("write %s. err: %w", filepath.Join("diff", "before.json"), err)
+		be := json.NewEncoder(bf2)
+		be.SetIndent("", "  ")
+		be.SetEscapeHTML(false)
+		if err := be.Encode(br); err != nil {
+			return fmt.Errorf("encode to %s. err: %w", filepath.Join("diff", "before.json"), err)
 		}
 
 		af2, err := os.Create(filepath.Join("diff", "after.json"))
@@ -170,12 +170,11 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 		}
 		defer af2.Close()
 
-		bs, err = os.ReadFile(filepath.Join(filepath.Join(afterDir, filepath.Base(scanresultPath))))
-		if err != nil {
-			return fmt.Errorf("read %s. err: %w", filepath.Join(afterDir, filepath.Base(scanresultPath)), err)
-		}
-		if _, err := af2.Write(bs); err != nil {
-			return fmt.Errorf("write %s. err: %w", filepath.Join("diff", "after.json"), err)
+		ae := json.NewEncoder(af2)
+		ae.SetIndent("", "  ")
+		ae.SetEscapeHTML(false)
+		if err := ae.Encode(ars[0]); err != nil {
+			return fmt.Errorf("encode to %s. err: %w", filepath.Join("diff", "after.json"), err)
 		}
 
 		return fmt.Errorf("diff found")

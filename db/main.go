@@ -70,6 +70,7 @@ func run(scanresultPath, beforeDBPath, afterDBPath string) error {
 				Type: "sqlite3",
 			},
 		},
+		ReportOpts: config.ReportOpts{RefreshCve: true},
 	}
 
 	beforeDir, err := os.MkdirTemp("", "vuls-compare-*")
@@ -141,24 +142,17 @@ func run(scanresultPath, beforeDBPath, afterDBPath string) error {
 			return fmt.Errorf("write to %s. err: %w", filepath.Join("diff", "cves.diff"), err)
 		}
 
-		bs, err := os.ReadFile(filepath.Join(beforeDir, filepath.Base(scanresultPath)))
-		if err != nil {
-			return fmt.Errorf("read %s. err: %w", filepath.Join(beforeDir, filepath.Base(scanresultPath)), err)
-		}
-
 		bf2, err := os.Create(filepath.Join("diff", "before.json"))
 		if err != nil {
 			return fmt.Errorf("create %s. err: %w", filepath.Join("diff", "before.json"), err)
 		}
 		defer bf2.Close()
 
-		if _, err := bf2.Write(bs); err != nil {
-			return fmt.Errorf("write %s. err: %w", filepath.Join("diff", "before.json"), err)
-		}
-
-		bs, err = os.ReadFile(filepath.Join(afterDir, filepath.Base(scanresultPath)))
-		if err != nil {
-			return fmt.Errorf("read %s. err: %w", filepath.Join(afterDir, filepath.Base(scanresultPath)), err)
+		be := json.NewEncoder(bf2)
+		be.SetIndent("", "  ")
+		be.SetEscapeHTML(false)
+		if err := be.Encode(brs[0]); err != nil {
+			return fmt.Errorf("encode to %s. err: %w", filepath.Join("diff", "before.json"), err)
 		}
 
 		af2, err := os.Create(filepath.Join("diff", "after.json"))
@@ -167,8 +161,11 @@ func run(scanresultPath, beforeDBPath, afterDBPath string) error {
 		}
 		defer af2.Close()
 
-		if _, err := af2.Write(bs); err != nil {
-			return fmt.Errorf("write %s. err: %w", filepath.Join("diff", "after.json"), err)
+		ae := json.NewEncoder(af2)
+		ae.SetIndent("", "  ")
+		ae.SetEscapeHTML(false)
+		if err := ae.Encode(ars[0]); err != nil {
+			return fmt.Errorf("encode to %s. err: %w", filepath.Join("diff", "after.json"), err)
 		}
 
 		return fmt.Errorf("diff found")
