@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/future-architect/vuls/config"
@@ -116,7 +117,12 @@ func filter(r models.ScanResult, ccType models.CveContentType) models.VulnInfos 
 		if found {
 			// slog.Info("found", "cc", cc)
 			for i, cc := range ccs {
+				cc.Title = ""
+				cc.Summary = ""
+				cc.Cvss3Severity = strings.ToLower(cc.Cvss3Severity)
 				cc.Published = time.Time{}
+				cc.LastModified = time.Time{}
+				cc.References = nil
 				cc.Optional = nil
 				ccs[i] = cc
 			}
@@ -125,10 +131,21 @@ func filter(r models.ScanResult, ccType models.CveContentType) models.VulnInfos 
 			// slog.Info("not found", "ccs", r)
 			vi.CveContents = models.CveContents{}
 		}
-		for i, d := range vi.DistroAdvisories {
-			d.Issued = time.Time{}
-			vi.DistroAdvisories[i] = d
+
+		affected := make([]models.PackageFixStatus, 0, len(vi.AffectedPackages))
+		for _, p := range vi.AffectedPackages {
+			if p.NotFixedYet {
+				affected = append(affected, p)
+			}
 		}
+		vi.AffectedPackages = affected
+
+		// for i, d := range vi.DistroAdvisories {
+		// 	d.Issued = time.Time{}
+		// 	vi.DistroAdvisories[i] = d
+		// }
+		vi.DistroAdvisories = nil
+
 		for i := range vi.KEVs {
 			if vi.KEVs[i].VulnCheck == nil {
 				continue
@@ -137,7 +154,11 @@ func filter(r models.ScanResult, ccType models.CveContentType) models.VulnInfos 
 				vi.KEVs[i].VulnCheck.XDB = nil
 			}
 		}
-		r.ScannedCves[cveId] = vi
+		if len(vi.AffectedPackages) == 0 {
+			delete(r.ScannedCves, cveId)
+		} else {
+			r.ScannedCves[cveId] = vi
+		}
 	}
 	return r.ScannedCves
 }
