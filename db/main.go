@@ -89,7 +89,7 @@ func run(scanresultPath, beforeDBPath, afterDBPath string) error {
 		return fmt.Errorf("write %s. err: %w", filepath.Join(beforeDir, filepath.Base(scanresultPath)), err)
 	}
 
-	config.Conf.Vuls2 = config.Vuls2DictConf{
+	config.Conf.Vuls2 = config.Vuls2Conf{
 		Repository: "vuls-nightly-db:latest",
 		Path:       beforeDBPath,
 		SkipUpdate: true,
@@ -116,7 +116,7 @@ func run(scanresultPath, beforeDBPath, afterDBPath string) error {
 		return fmt.Errorf("write %s. err: %w", filepath.Join(afterDBPath, filepath.Base(scanresultPath)), err)
 	}
 
-	config.Conf.Vuls2 = config.Vuls2DictConf{
+	config.Conf.Vuls2 = config.Vuls2Conf{
 		Repository: "vuls-nightly-db:nightly",
 		Path:       afterDBPath,
 		SkipUpdate: true,
