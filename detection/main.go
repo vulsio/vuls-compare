@@ -123,7 +123,7 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 				Type: "sqlite3",
 			},
 		},
-		Vuls2: config.Vuls2DictConf{
+		Vuls2: config.Vuls2Conf{
 			Repository: "vuls-nightly-db:latest",
 			Path:       vuls2DBPath,
 			SkipUpdate: true,
