@@ -9,7 +9,6 @@ import (
 	"time"
 
 	"github.com/future-architect/vuls/config"
-	"github.com/future-architect/vuls/constant"
 	"github.com/future-architect/vuls/detector"
 	"github.com/future-architect/vuls/models"
 	"github.com/google/go-cmp/cmp"
@@ -93,11 +92,6 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 				Type: "sqlite3",
 			},
 		},
-		OvalDict: config.GovalDictConf{
-			VulnDict: config.VulnDict{
-				Type: "sqlite3",
-			},
-		},
 		Gost: config.GostConf{
 			VulnDict: config.VulnDict{
 				Type: "sqlite3",
@@ -136,7 +130,7 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 		return fmt.Errorf("after detect. err: %w", err)
 	}
 
-	if diff := cmp.Diff(filter(br, constant.RedHat), filter(ars[0], constant.RedHat)); diff != "" {
+	if diff := cmp.Diff(filter(br), filter(ars[0])); diff != "" {
 		if err := os.MkdirAll("diff", 0755); err != nil {
 			return fmt.Errorf("mkdir %s. err: %w", "diff", err)
 		}
@@ -183,7 +177,8 @@ func run(scanresultPath, vulsBinaryPath, configPath, vuls2DBPath string) error {
 	return nil
 }
 
-func filter(r models.ScanResult, ccType models.CveContentType) models.VulnInfos {
+func filter(r models.ScanResult) models.VulnInfos {
+	ccType := models.NewCveContentType(r.Family)
 	for cveId, vi := range r.ScannedCves {
 		ccs, found := vi.CveContents[ccType]
 		if found {
