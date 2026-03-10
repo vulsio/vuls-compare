@@ -12,6 +12,8 @@ jobs:
     defaults:
       run:
         working-directory: db
+    env:
+      GOEXPERIMENT: jsonv2
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -24,6 +26,8 @@ jobs:
     defaults:
       run:
         working-directory: detection
+    env:
+      GOEXPERIMENT: jsonv2
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
