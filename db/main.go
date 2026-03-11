@@ -40,11 +40,6 @@ func run(scanresultPath, beforeDBPath, afterDBPath string) error {
 				Type: "sqlite3",
 			},
 		},
-		OvalDict: config.GovalDictConf{
-			VulnDict: config.VulnDict{
-				Type: "sqlite3",
-			},
-		},
 		Gost: config.GostConf{
 			VulnDict: config.VulnDict{
 				Type: "sqlite3",
